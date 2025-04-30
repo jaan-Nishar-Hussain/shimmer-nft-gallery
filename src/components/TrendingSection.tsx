@@ -1,238 +1,104 @@
 
-import React, { useEffect, useState, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import React from 'react';
 import NFTCard from './NFTCard';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
 
-// Mock NFT Data
+// Sample data for trending NFTs
 const trendingNfts = [
   {
-    id: 1,
-    name: "Abstract Dimensions #28",
-    creator: "QuantumArtist",
-    price: 1.6,
+    id: 423,
+    name: "Monkey #423",
+    creator: "Detoxa",
+    price: 4.5,
     currency: "ETH",
-    image: "https://images.unsplash.com/photo-1621075160523-b936ad96132a?q=80&w=1470&auto=format&fit=crop"
+    image: "/lovable-uploads/126efc54-339a-48ab-be46-5d87f5ca358c.png",
+    backgroundColor: "#4EEBC0"
   },
   {
-    id: 2,
-    name: "Cybernetic Dreams",
-    creator: "NeonWave",
-    price: 2.3,
+    id: 247,
+    name: "Monkey #247",
+    creator: "Lewen Thomas",
+    price: 2.8,
     currency: "ETH",
-    image: "https://images.unsplash.com/photo-1578632292335-df3abbb0d586?q=80&w=1374&auto=format&fit=crop"
+    image: "/lovable-uploads/126efc54-339a-48ab-be46-5d87f5ca358c.png",
+    backgroundColor: "#A162F7"
   },
   {
-    id: 3,
-    name: "Ethereal Voyage",
-    creator: "CryptoVisions",
-    price: 1.2,
+    id: 589,
+    name: "Monkey #589",
+    creator: "mrhankey",
+    price: 3.2,
     currency: "ETH",
-    image: "https://images.unsplash.com/photo-1633186723562-89fc946004f9?q=80&w=1374&auto=format&fit=crop"
+    image: "/lovable-uploads/126efc54-339a-48ab-be46-5d87f5ca358c.png",
+    backgroundColor: "#FF8B8B"
   },
   {
-    id: 4,
-    name: "Digital Genesis #48",
-    creator: "BlockchainPunk",
-    price: 3.5,
+    id: 671,
+    name: "Monkey #671",
+    creator: "Detoxa",
+    price: 5.1,
     currency: "ETH",
-    image: "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?q=80&w=1365&auto=format&fit=crop"
+    image: "/lovable-uploads/126efc54-339a-48ab-be46-5d87f5ca358c.png",
+    backgroundColor: "#FFC700"
   }
 ];
 
-const categories = ["All", "Art", "Collectibles", "Photography", "Music", "Virtual Worlds"];
-
 const TrendingSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [isLoading, setIsLoading] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const headingRef = useRef(null);
-  const headingInView = useInView(headingRef, { once: true });
-  
-  useEffect(() => {
-    // Reveal elements as they scroll into view
-    const revealElements = document.querySelectorAll('.reveal-on-scroll');
-    
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    revealElements.forEach(element => {
-      observer.observe(element);
-    });
-    
-    return () => {
-      revealElements.forEach(element => {
-        observer.unobserve(element);
-      });
-    };
-  }, []);
-
-  // Simulate loading when changing categories
-  const handleCategoryChange = (category: string) => {
-    setIsLoading(true);
-    setSelectedCategory(category);
-    setTimeout(() => setIsLoading(false), 800);
-  };
-  
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
-
   return (
-    <section ref={ref} className="py-16 px-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-full h-full -z-10">
-        <div className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full bg-nft-purple/10 filter blur-[80px] opacity-30"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-nft-blue/10 filter blur-[100px] opacity-30"></div>
+    <section className="py-16 bg-[#f8f9fa] container mx-auto px-4">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">Find Trending NFT Items</h2>
+        <p className="text-sm text-nft-light-text mb-6">
+          Add items to your cart at any point while you're browsing. Before you check out, you can edit quantities or remove items from your cart.
+        </p>
+        
+        <div className="flex gap-2 mb-8">
+          <Button className="bg-black text-white rounded-lg hover:bg-black/90">
+            All NFTs
+          </Button>
+          <Button variant="outline" className="text-nft-light-text border-nft-light-text/20 hover:bg-transparent hover:border-nft-light-text/40 rounded-lg">
+            Art
+          </Button>
+        </div>
+        
+        {/* Search and Filter Bar */}
+        <div className="grid grid-cols-12 gap-4 mb-8 bg-white rounded-xl p-3 shadow-sm">
+          <div className="col-span-8">
+            <input 
+              type="text" 
+              placeholder="Search items, collections, and accounts" 
+              className="w-full px-3 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-1 focus:ring-nft-yellow"
+            />
+          </div>
+          <div className="col-span-2">
+            <select className="w-full px-3 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-1 focus:ring-nft-yellow bg-white">
+              <option>Recently added</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+            </select>
+          </div>
+          <div className="col-span-2">
+            <select className="w-full px-3 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-1 focus:ring-nft-yellow bg-white">
+              <option>All items</option>
+              <option>Single items</option>
+              <option>Bundles</option>
+            </select>
+          </div>
+        </div>
       </div>
-
-      <div className="container mx-auto">
-        {/* Section Header */}
-        <motion.div 
-          ref={headingRef}
-          className="flex justify-between items-end mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={headingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <div>
-            <h2 className="text-3xl font-bold mb-2 relative">
-              Trending NFTs
-              <span className="absolute -bottom-1 left-0 w-1/3 h-[3px] bg-gradient-to-r from-nft-purple to-nft-blue rounded-full"></span>
-            </h2>
-            <p className="text-muted-foreground">
-              The most popular and sought-after pieces in our marketplace
-            </p>
-          </div>
-          
-          <motion.button 
-            whileHover={{ x: 5 }}
-            className="flex items-center space-x-2 text-nft-purple hover:text-nft-purple/90 transition-colors"
-          >
-            <span>View All</span>
-            <ArrowRight className="h-4 w-4" />
-          </motion.button>
-        </motion.div>
-        
-        {/* Category Filters - Animated tabs */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap gap-2 mb-8 relative"
-        >
-          {categories.map((category, index) => (
-            <motion.button
-              key={category}
-              onClick={() => handleCategoryChange(category)}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all overflow-hidden ${
-                selectedCategory === category
-                ? "text-white"
-                : "bg-secondary text-foreground hover:bg-secondary/80"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              custom={index}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: (i) => ({
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    delay: 0.1 * i,
-                    duration: 0.4
-                  }
-                })
-              }}
-            >
-              {selectedCategory === category && (
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-nft-purple to-nft-blue -z-10"
-                  layoutId="activeCategoryBackground"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-              {category}
-            </motion.button>
-          ))}
-        </motion.div>
-        
-        {/* NFT Grid */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((placeholder) => (
-              <div key={placeholder} className="rounded-xl overflow-hidden animate-pulse">
-                <div className="aspect-square bg-secondary"></div>
-                <div className="p-4 bg-nft-card-bg space-y-3">
-                  <div className="h-5 bg-secondary rounded w-3/4"></div>
-                  <div className="h-4 bg-secondary rounded w-1/2"></div>
-                  <div className="h-8 bg-secondary rounded w-full mt-4"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {trendingNfts.map((nft, index) => (
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            key={nft.id} 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
           >
-            {trendingNfts.map((nft, index) => (
-              <motion.div 
-                key={nft.id}
-                variants={itemVariants}
-                custom={index}
-                className="will-change-transform"
-                whileHover={{ 
-                  y: -5,
-                  transition: { duration: 0.2 } 
-                }}
-              >
-                <NFTCard nft={nft} featured={index === 0} />
-              </motion.div>
-            ))}
+            <NFTCard nft={nft} />
           </motion.div>
-        )}
-        
-        {/* Scroll indicator */}
-        <motion.div 
-          className="mt-12 flex justify-center items-center gap-2 text-muted-foreground text-sm"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-        >
-          <span>Scroll for more</span>
-          <motion.div 
-            animate={{ y: [0, 8, 0] }} 
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-0.5 h-6 bg-gradient-to-b from-transparent via-nft-purple to-transparent"
-          ></motion.div>
-        </motion.div>
+        ))}
       </div>
     </section>
   );

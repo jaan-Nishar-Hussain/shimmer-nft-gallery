@@ -64,15 +64,17 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				nft: {
+					yellow: '#FFC700',
+					'light-yellow': '#FFF3D4',
+					orange: '#FF7A00',
+					pink: '#FF36A6',
 					purple: '#9b87f5',
-					'dark-purple': '#1A1F2C',
-					'light-purple': '#D6BCFA',
-					'vivid-purple': '#8B5CF6',
-					pink: '#D946EF',
+					green: '#00C48C',
 					blue: '#0EA5E9',
-					'dark-bg': '#0F1018',
-					'card-bg': '#1A1F2C',
-					'neutral-gray': '#8E9196',
+					'light-bg': '#FFFFFF',
+					'dark-text': '#222222',
+					'light-text': '#777777',
+					'card-bg': '#F8F8F8',
 				}
 			},
 			borderRadius: {
